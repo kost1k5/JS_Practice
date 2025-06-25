@@ -4,9 +4,6 @@ let example = prompt('Введите ваше предложение', ' \n\t \n
 function spaceDelete (str){
     let start = 0;
     let end = str.length - 1;
-    let orgStart = start;
-    let orgEnd = end;
-
     while (start <= end && str[start] === ' ' || str[start] === '\t' || str[start] === '\n'){
     start++  
     }
@@ -18,7 +15,7 @@ function spaceDelete (str){
     while (end >= start && str[end] === ' ' || str[end] === '\t' || str[end] === '\n'){
         end--;
     }
-    if(start === orgStart && end === orgEnd){
+    if(start === 0 && end === str.length - 1){
         console.log('В вашей строке нет пробелов')
         return str
     }
