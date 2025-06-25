@@ -5,7 +5,15 @@ function spaceDelete (str){
     let start = 0;
     let end = str.length - 1;
     while (start <= end && str[start] === ' ' || str[start] === '\t' || str[start] === '\n'){
-        start++;
+    start++  
+    }
+    if(start > end){
+        console.log("Строка состоит только из пробелов");
+        return '';
+    }
+    if( start === 0 &&  (str[end] !== ' ' && str[end] !== '\t' && str[end] !== '\n')) {
+    console.log('В вашей строке нет пробелов')
+        return str;
     }
     while (end >= start && str[end] === ' ' || str[end] === '\t' || str[end] === '\n'){
         end--;
