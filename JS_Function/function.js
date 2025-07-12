@@ -232,3 +232,70 @@
 // const message = prompt('Введите строчку', "А роза упала на лапу Азора")
 
 // palindrome(message)
+
+
+// Проверка слова на анаграмму(чистая функция) без использования массивов
+
+// function areAnagrams(str1, str2) {
+//   let slovo1 = str1.toLowerCase().replace(/[^а-яёa-z0-9]/g, '').replace(/ё/g, 'е');
+//   let slovo2 = str2.toLowerCase().replace(/[^а-яёa-z0-9]/g, '').replace(/ё/g, 'е');
+
+//   if (slovo1.length !== slovo2.length) return false;
+
+//   let text = {};
+//   for (let i = 0; i < slovo1.length; i++) {
+//     let used = slovo1[i];
+//     text[used] = (text[used] || 0) + 1;
+//   }
+
+//   for (let i = 0; i < slovo2.length; i++) {
+//     let use = slovo2[i];
+//     if (text[use]) {
+//       text[use]--;
+//     } else {
+//       return false;
+//     }
+//   }
+
+//   for (let key in text) {
+//     if (text[key] !== 0) return false;
+//   }
+
+//   return true;
+// }
+
+// areAnagrams('А роза упала на лапу Азора', 'Ароза упал ан алапу азор А')
+
+
+
+
+
+// function countVowels(str) { 
+//   const vowels = 'аеёиоуыэюяАЕЁИОУЫЭЮЯ';
+
+//   // 1. Через forEach
+//   let count = 0;
+//   str.split('').forEach(function(char) {
+//     if (vowels.includes(char)) {
+//       count++;
+//     }
+//   });
+
+//   // 2. Через filter
+//   // filter возвращает массив гласных, длина которого — количество гласных
+//   const filtered = str.split('').filter(function(char) {
+//     return vowels.includes(char);
+//   });
+//   let count1 = filtered.length;
+
+//   // 3. Через reduce
+//   let count2 = str.split('').reduce(function(accumulator, char) {
+//     if (vowels.includes(char)) {
+//       return accumulator + 1;
+//     } else {
+//       return accumulator;
+//     }
+//   }, 0);
+
+//   return [count, count1, count2];
+// }
