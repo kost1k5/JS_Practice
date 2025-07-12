@@ -32,7 +32,7 @@ function addDrinksButton() {
   const alco = prompt('Данный напиток алкогольный?', 'Нет');
   const recipe = prompt('Введите рецепт напитка', 'Муха цикатуха волчья ягода и зуб дракона');
   if (drinks.hasKey(key)){
-    console.log(`Напиток "${key}" уже существует`)
+    console.log(`Напиток "${key}" уже добавлен`)
   }
   else if (key && key.trim() && alco && alco.trim() && recipe && recipe.trim()) {  
  drinks.addValue(key.trim(), { alco: alco.trim(), recipe: recipe.trim() });
@@ -52,7 +52,7 @@ function getDrinksInfoButton(){
 }
 
 function listDrinksButton(){
-    console.log(drinks.getKeys)
+    console.log(drinks.getKeys())
 }
 
 function deleteDrinksButton(){
