@@ -1,4 +1,4 @@
-function countVowels(str) { 
+function countVowelsForEach(str) { 
   const vowels = 'аеёиоуыэюяАЕЁИОУЫЭЮЯ';
   let count = 0;
   str.split('').forEach(function(char) {
@@ -7,12 +7,22 @@ function countVowels(str) {
     }
   });
  
+  return count;
+}
+
+
+function countVowelsFilter(str) { 
+  const vowels = 'аеёиоуыэюяАЕЁИОУЫЭЮЯ';
   const filtered = str.split('').filter(function(char) {
     return vowels.includes(char);
   });
-  let count1 = filtered.length;
+  let count = filtered.length;
+  return count ;
+}
 
-  let count2 = str.split('').reduce(function(accumulator, char) {
+function countVowelsReduce(str) { 
+  const vowels = 'аеёиоуыэюяАЕЁИОУЫЭЮЯ';
+  let count = str.split('').reduce(function(accumulator, char) {
     if (vowels.includes(char)) {
       return accumulator + 1;
     } else {
@@ -20,8 +30,13 @@ function countVowels(str) {
     }
   }, 0);
 
-  return [count, count1, count2];
+  return count;
 }
+
+
 const userInput = prompt('Введите вашу строку', 'Кот собака петух курица комар муха');
-const vowelCount = countVowels(userInput);
-console.log('Количество гласных букв (forEach, filter, reduce): ' + vowelCount.join(', '));
+const vowelCountForEach = countVowelsForEach(userInput);
+const vowelCountFilter = countVowelsFilter(userInput);
+const vowelCountReduce = countVowelsReduce(userInput)
+
+console.log(`Количество гласных букв (forEach, filter, reduce):  "${vowelCountForEach}" "${vowelCountFilter}"  "${vowelCountReduce}" `);
