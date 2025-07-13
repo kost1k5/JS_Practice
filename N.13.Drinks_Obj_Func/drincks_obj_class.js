@@ -58,7 +58,7 @@ function getDrinksInfoButton(){
     const key = prompt('Введите название напитка');
     const getDrinks = drinks.getValue(key)
     if (getDrinks){
-        alert(`Напиток "${key}":`, getDrinks)
+        alert(`Напиток "${key}"\n Алкогольный: ${getDrinks.alco}\n Рецепт напитка: ${getDrinks.recipe}`)
     } else {
         alert(`Информация о "${key}" не найдена`)
     }
