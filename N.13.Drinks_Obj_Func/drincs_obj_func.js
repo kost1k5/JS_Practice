@@ -47,19 +47,16 @@ function addDrinksButton() {
     console.log('Рецепт не может быть пустым');
     return;
   }
-
-  if (drinks.getValue(key)) {
-    console.log(`Напиток "${key}" уже добавлен`);
-  } else {
-    drinks.addValue(key, { alco, recipe });
+  drinks.addValue(key, { alco, recipe });
     console.log(`Напиток "${key}" успешно добавлен.`);
-  }
+  
 }
 
 function getDrinksInfoButton(){
     const key = prompt('Введите название напитка');
-    if (drinks.getValue(key)){
-        console.log(`Напиток "${key}":`, drinks.getValue(key))
+    const getDrinks = drinks.getValue(key)
+    if (getDrinks){
+        console.log(`Напиток "${key}":`, getDrinks)
     } else {
         console.log(`Информация о "${key}" не найдена`)
     }
@@ -71,8 +68,8 @@ function listDrinksButton(){
 
 function deleteDrinksButton(){
 const key = prompt('Какой напиток вы бы хотели удалить', "Кола")
-if(drinks.getValue(key)){
-    drinks.deleteValue(key)
+if( drinks.deleteValue(key) === true){
+    
     console.log('Напиток удален из списка')
 } else {
     console.log('Напиток не найден')
