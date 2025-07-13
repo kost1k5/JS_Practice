@@ -299,3 +299,23 @@
 
 //   return [count, count1, count2];
 // }
+
+
+
+// принимает число-модуль и возвращает другую функцию. Вторая функция принимает диапазон и выводит в консоль числа из этого диапазона, которые делятся на модуль (или не делятся, в зависимости от параметра).
+// если divisible == true возвращает числа без остатка 
+// function aaa(modul){
+//   return function(start, end, divisible){
+//     for(let i = start; i <= end; i++){
+//       if(divisible){
+//         if( i % modul === 0){
+//           console.log(i)
+//         }
+//       } else{
+//         if ( i % modul !== 0){
+//           console.log(i)
+//         }   
+//       }
+//     }
+//   }
+// }

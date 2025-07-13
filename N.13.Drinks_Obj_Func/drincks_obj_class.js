@@ -38,19 +38,19 @@ function addDrinksButton() {
   const alco = alcoRaw ? cleanString(alcoRaw) : '';
   const recipe = recipeRaw ? cleanString(recipeRaw) : '';
   if (!key) {
-    console.log('Название напитка не может быть пустым');
+    alert('Название напитка не может быть пустым');
     return;
   }
   if (!alco) {
-    console.log('Алкогольный статус не может быть пустым');
+    alert('Алкогольный статус не может быть пустым');
     return;
   }
   if (!recipe) {
-    console.log('Рецепт не может быть пустым');
+    alert('Рецепт не может быть пустым');
     return;
   }
     drinks.addValue(key, { alco, recipe });
-    console.log(`Напиток "${key}" успешно добавлен.`);
+    alert(`Напиток "${key}" успешно добавлен.`);
   
 }
 
@@ -58,21 +58,21 @@ function getDrinksInfoButton(){
     const key = prompt('Введите название напитка');
     const getDrinks = drinks.getValue(key)
     if (getDrinks){
-        console.log(`Напиток "${key}":`, getDrinks)
+        alert(`Напиток "${key}":`, getDrinks)
     } else {
-        console.log(`Информация о "${key}" не найдена`)
+        alert(`Информация о "${key}" не найдена`)
     }
 }
 
 function listDrinksButton(){
-    console.log(drinks.getKeys())
+    alert(drinks.getKeys())
 }
 
 function deleteDrinksButton(){
 const key = prompt('Какой напиток вы бы хотели удалить', "Кола")
 if(drinks.deleteValue(key)){  
-    console.log('Напиток удален из списка')
+    alert('Напиток удален из списка')
 } else {
-    console.log('Напиток не найден')
+    alert('Напиток не найден')
 }
 }
