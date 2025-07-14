@@ -63,7 +63,7 @@ function getDrinksInfoButton(){
 }
 
 function listDrinksButton(){
-    alert(drinks.getKeys()\n)
+    alert(drinks.getKeys())
 }
 
 function deleteDrinksButton(){
