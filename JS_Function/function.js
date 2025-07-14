@@ -319,3 +319,12 @@
 //     }
 //   }
 // }
+
+
+
+// функция рандомного числа 
+// function randomDiap(n,m){ //указываем диапазон
+// return Math.floor(
+//     Math.random() * (m - n + 1)) + n;
+// }
+
