@@ -25,6 +25,15 @@ attrStr +=`${key} = '${attr[key]}'`
     }
 }
 
-var wrap = buildWrapper('H1')
-console.log(wrap("СТИХИ",{align:"center",title:"M&M's"}))
+var wrapP = buildWrapper("P");
+console.log(wrapP("Однажды в студёную зимнюю пору"));
 
+
+console.log(wrapP("Однажды в студёную зимнюю пору", { lang: "ru" }));
+
+
+var wrapH1 = buildWrapper("H1");
+console.log(wrapH1("СТИХИ", { align: "center", title: "M&M's" }));
+
+
+console.log(wrapP("Однажды в <студёную> зимнюю пору"));
