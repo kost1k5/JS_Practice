@@ -1,27 +1,30 @@
 function buildWrapper(tag){
     return function(text,attr = {}){
-    let escapedText = text
-    .replace(/&/g, '&amp;')
+
+        function cleanStr(str){
+            let word = 
+            str.replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&apos;')
+      return word
+        }
+
+    let escapedText = cleanStr(text)
+    
     for(let key in attr){
         if (attr.hasOwnProperty(key)){
-            attr[key] = attr[key] 
-            .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&apos;')
+            attr[key] = cleanStr(attr[key]) 
+         
         }
     }
      
         let attrStr = '';
         for (let key in attr){
-attrStr +=`${key} = '${attr[key]}'`
+                  attrStr += ` ${key}='${attr[key]}'`
         }
-        return `< ${tag} ${attrStr} > ${escapedText} </${tag}>`;
+        return `<${tag}${attrStr}>${escapedText}</${tag}>`;
     }
 }
 
