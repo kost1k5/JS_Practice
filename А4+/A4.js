@@ -1,5 +1,5 @@
 function palindrome(str){
-  let cleanStr = str.toLowerCase().replace(/[^а-яa-z0-9]/g, '');
+  let cleanStr = str.toLowerCase().replace(/ё/g, "е").replace(/[^а-яa-z0-9]/g, '');
   function check(word){
    if (word.length <= 1) {
      return true
@@ -19,5 +19,3 @@ alert('Ваша строка палиндром')}
 else {
   alert ('Ваша строка не палиндром')
 }
-
-
