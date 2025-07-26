@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
     <meta charset=UTF-8>
     <title>drag&amp;drop</title>
@@ -12,58 +12,62 @@
 <img src='http://fe.it-academy.by/Sites/0000007/No_smoking.png' style='padding-left: 50px'>
 
  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const images = document.querySelectorAll("img");
+  window.addEventListener("DOMContentLoaded", () => {
+  const images = document.querySelectorAll("img");
+  const body = document.body;
+  body.style.position = 'relative';
 
-      images.forEach((img) => {
-      img.style.position = "absolute";
-        img.style.top = img.offsetTop + "px"; 
-        img.style.left = img.offsetLeft + "px";
-        const zIndex = img.style.zIndex;
+ 
+  const positions = [];
 
-img.style.cursor = 'grab'
-        let shiftX, shiftY;
-
-        img.addEventListener("mousedown", (evt) => {
-          img.style.zIndex = Math.max(zIndex + 1)
-        
-          shiftX = evt.clientX - img.getBoundingClientRect().left;
-          shiftY = evt.clientY - img.getBoundingClientRect().top;
-          ;
-       
-
-          
-
-          function onMouseMove(event) {
-            img.style.left = event.pageX - shiftX + "px";
-            img.style.top = event.pageY - shiftY + "px";
-            img.style.cursor = 'move';
-           
-          }
-
-          function onMouseUp() {
-            document.removeEventListener("mousemove", onMouseMove);
-            document.removeEventListener("mouseup", onMouseUp);
-           ;
-           img.style.cursor = 'grab'
-           img.style.zIndex = zIndex
-            
-          }
-
-          document.addEventListener("mousemove", onMouseMove);
-          document.addEventListener("mouseup", onMouseUp);
-
-          
-        });
-
-
-        
-
-        
-        img.ondragstart = () => false;
-      });
+  images.forEach(img => {
+    positions.push({
+      top: img.offsetTop,
+      left: img.offsetLeft,
+      zIndex: img.style.zIndex
     });
-    
+  });
+
+
+  images.forEach((img, i) => {
+    img.style.position = "absolute";
+    img.style.top = positions[i].top + "px";
+    img.style.left = positions[i].left + "px";
+  });
+
+ 
+  images.forEach((img, i) => {
+    const zIndex = positions[i].zIndex;
+    img.style.cursor = 'grab';
+    let shiftX, shiftY;
+
+    img.addEventListener("mousedown", (evt) => {
+      img.style.zIndex = Math.max(zIndex + 1);
+
+      shiftX = evt.clientX - img.getBoundingClientRect().left;
+      shiftY = evt.clientY - img.getBoundingClientRect().top;
+
+      function onMouseMove(event) {
+        img.style.left = event.pageX - shiftX + "px";
+        img.style.top = event.pageY - shiftY + "px";
+        img.style.cursor = 'move';
+      }
+
+      function onMouseUp() {
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+        img.style.cursor = 'grab';
+        img.style.zIndex = zIndex;
+      }
+
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    });
+
+    img.ondragstart = () => false;
+  });
+});
+
   </script>
 
   </body>
