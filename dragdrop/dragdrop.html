@@ -7,42 +7,43 @@
   </head>
   <body style='min-height: 100vh'>
 <img src='http://fe.it-academy.by/Sites/0000007/sax.jpg'>
-<img src='http://fe.it-academy.by/Sites/0000007/Yin_and_Yang.png' width=100 style='vertical-align: 20px'>
+<img src='http://fe.it-academy.by/Sites/0000007/Yin_and_Yang.png' width=100 style='vertical-align: 20px' value>
 <img src='http://fe.it-academy.by/Sites/0000007/Man-and-woman.png' width=150>
 <img src='http://fe.it-academy.by/Sites/0000007/No_smoking.png' style='padding-left: 50px'>
 
  <script>
-  window.addEventListener("load", () => {
+window.addEventListener("load", () => {
   const images = document.querySelectorAll("img");
   const body = document.body;
   body.style.position = 'relative';
 
- 
+
   const positions = [];
 
   images.forEach(img => {
     positions.push({
       top: img.offsetTop,
       left: img.offsetLeft,
-      zIndex: img.style.zIndex
+      zIndex: parseInt(window.getComputedStyle(img).zIndex) || 0
     });
   });
-
 
   images.forEach((img, i) => {
     img.style.position = "absolute";
     img.style.top = positions[i].top + "px";
     img.style.left = positions[i].left + "px";
+    img.style.zIndex = positions[i].zIndex;
   });
 
- 
-  images.forEach((img, i) => {
-    const zIndex = positions[i].zIndex;
+  let maxZIndex = Math.max(...positions.map(pos => pos.zIndex));
+
+  images.forEach(img => {
     img.style.cursor = 'grab';
     let shiftX, shiftY;
 
     img.addEventListener("mousedown", (evt) => {
-      img.style.zIndex = zIndex + 1;
+      maxZIndex++;
+      img.style.zIndex = maxZIndex; 
 
       shiftX = evt.clientX - img.getBoundingClientRect().left;
       shiftY = evt.clientY - img.getBoundingClientRect().top;
@@ -57,7 +58,7 @@
         document.removeEventListener("mousemove", onMouseMove);
         document.removeEventListener("mouseup", onMouseUp);
         img.style.cursor = 'grab';
-        img.style.zIndex = zIndex;
+       
       }
 
       document.addEventListener("mousemove", onMouseMove);
