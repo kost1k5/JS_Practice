@@ -2,7 +2,6 @@
 <html lang="ru">
   <head>
     <meta charset=UTF-8>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>drag&amp;drop</title>
     <link rel="stylesheet" href="main.css">
   </head>
@@ -13,7 +12,7 @@
 <img src='http://fe.it-academy.by/Sites/0000007/No_smoking.png' style='padding-left: 50px'>
 
  <script>
-  window.addEventListener("DOMContentLoaded", () => {
+  window.addEventListener("load", () => {
   const images = document.querySelectorAll("img");
   const body = document.body;
   body.style.position = 'relative';
@@ -43,7 +42,7 @@
     let shiftX, shiftY;
 
     img.addEventListener("mousedown", (evt) => {
-      img.style.zIndex = Math.max(zIndex + 1);
+      img.style.zIndex = zIndex + 1;
 
       shiftX = evt.clientX - img.getBoundingClientRect().left;
       shiftY = evt.clientY - img.getBoundingClientRect().top;
