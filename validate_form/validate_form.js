@@ -57,6 +57,141 @@ document.addEventListener('DOMContentLoaded', function() {
     const errorReviews = document.getElementById('error-reviews');
     const errorDescription = document.getElementById('error-description');
 
+    // Валидация поля "Разработчики"
+    function validateDevelopersField() {
+        const cleanDeveloperValue = cleanValue(developers.value);
+        if (!cleanDeveloperValue) {
+            showError(errorDevelopers, 'Вы ничего не ввели');
+            return false;
+        } else if (!hasNoLongRepeatsNoRegex(cleanDeveloperValue)) {
+            showError(errorDevelopers, 'Ввод содержит недопустимые повторяющиеся спецсимволы (3 и более подряд)');
+            return false;
+        } else if (cleanDeveloperValue.length > 30) {
+            showError(errorDevelopers, 'Введите имя и фамилию (псевдоним) не длиннее 30 символов');
+            return false;
+        } else if (cleanDeveloperValue.length < 3) {
+            showError(errorDevelopers, 'Вы ввели слишком короткое имя');
+            return false;
+        }
+        hideError(errorDevelopers);
+        return true;
+    }
+
+    // Валидация поля "Название сайта"
+    function validateSiteNameField() {
+        const cleanSiteNameValue = cleanValue(siteName.value);
+        if (!cleanSiteNameValue) {
+            showError(errorSiteName, 'Вы ничего не ввели');
+            return false;
+        } else if (!hasNoLongRepeatsNoRegex(cleanSiteNameValue)) {
+            showError(errorSiteName, 'Ввод содержит недопустимые повторяющиеся спецсимволы (3 и более подряд)');
+            return false;
+        } else if (cleanSiteNameValue.length > 50) {
+            showError(errorSiteName, 'Введите URL сайта не длиннее 50 символов');
+            return false;
+        } else if (cleanSiteNameValue.length < 3) {
+            showError(errorSiteName, 'Вы ввели слишком короткое название');
+            return false;
+        }
+        hideError(errorSiteName);
+        return true;
+    }
+
+    // Валидация поля "Дата запуска"
+    function validateLaunchDateField() {
+        const today = new Date();
+        const selectedDate = new Date(launchDate.value);
+        const minYear = new Date('1990-01-01');
+        if (!launchDate.value) {
+            showError(errorLaunchDate, 'Пожалуйста, выберите дату');
+            return false;
+        } else if (selectedDate > today) {
+            showError(errorLaunchDate, 'Дата не может быть в будущем');
+            return false;
+        } else if (selectedDate < minYear) {
+            showError(errorLaunchDate, 'Дата слишком ранняя (не ранее 1990 года)');
+            return false;
+        }
+        hideError(errorLaunchDate);
+        return true;
+    }
+
+    // Валидация поля "Посетителей за сутки"
+    function validateSubField() {
+        const cleanSubValue = cleanValue(sub.value);
+        if (!cleanSubValue) {
+            showError(errorSub, 'Вы ничего не ввели');
+            return false;
+        } else if (!hasNoLongRepeatsNoRegex(cleanSubValue)) {
+            showError(errorSub, 'Ввод содержит недопустимые повторяющиеся спецсимволы (3 и более подряд)');
+            return false;
+        } else if (!/^\d+$/.test(cleanSubValue)) {
+            showError(errorSub, 'Введите только целое число');
+            return false;
+        } else {
+            const subValue = parseInt(cleanSubValue, 10);
+            if (subValue > 100000) {
+                showError(errorSub, 'Мы не верим, что у вас такое большое количество посетителей');
+                return false;
+            }
+        }
+        hideError(errorSub);
+        return true;
+    }
+
+    // Валидация поля "Рубрика каталога"
+    function validateRubrickField() {
+        const rubrickValue = rubrick.value;
+        if (!rubrickValue) {
+            showError(errorRubrick, 'Пожалуйста выберите рубрику');
+            return false;
+        } else if (rubrickValue === 'house') {
+            showError(errorRubrick, 'Извините данная рубрика пока что не доступна');
+            return false;
+        }
+        hideError(errorRubrick);
+        return true;
+    }
+
+    // Валидация поля "Размещение"
+    function validateAccommodationField() {
+        const accommodationValue = Array.from(accommodation).find(radio => radio.checked)?.value;
+        if (!accommodationValue) {
+            showError(errorAccommodation, 'Пожалуйста выберите размещение');
+            return false;
+        } else if (accommodationValue === 'free') {
+            showError(errorAccommodation, 'Выберите другое размещение, бесплатно пока что не доступно');
+            return false;
+        }
+        hideError(errorAccommodation);
+        return true;
+    }
+
+    // Валидация поля "Разрешить отзывы"
+    function validateReviewsField() {
+        const reviewsValue = reviews.checked;
+        if (!reviewsValue) {
+            showError(errorReviews, 'Вы не согласились с правилами сайта');
+            return false;
+        }
+        hideError(errorReviews);
+        return true;
+    }
+
+    // Валидация поля "Описание сайта"
+    function validateDescriptionField() {
+        const descriptionValue = cleanValue(description.value);
+        if (!descriptionValue) {
+            showError(errorDescription, 'Введите описание сайта');
+            return false;
+        } else if (descriptionValue.length < 500) {
+            showError(errorDescription, 'Описание сайта не может быть меньше 500 символов');
+            return false;
+        }
+        hideError(errorDescription);
+        return true;
+    }
+
     // Функция валидации формы
     function validateInfoForm(eo) {
         eo.preventDefault();
@@ -76,106 +211,37 @@ document.addEventListener('DOMContentLoaded', function() {
             const errors = [];
             let firstErrorField = null;
 
-            // Валидация поля "Разработчики"
-            const cleanDeveloperValue = cleanValue(developers.value);
-            if (!cleanDeveloperValue) {
-                errors.push({ element: errorDevelopers, message: 'Вы ничего не ввели' });
-                if (!firstErrorField) firstErrorField = developers;
-            } else if (!hasNoLongRepeatsNoRegex(cleanDeveloperValue)) {
-                errors.push({ element: errorDevelopers, message: 'Ввод содержит недопустимые повторяющиеся спецсимволы (3 и более подряд)' });
-                if (!firstErrorField) firstErrorField = developers;
-            } else if (cleanDeveloperValue.length > 30) {
-                errors.push({ element: errorDevelopers, message: 'Введите имя и фамилию (псевдоним) не длиннее 30 символов' });
-                if (!firstErrorField) firstErrorField = developers;
-            } else if (cleanDeveloperValue.length < 3) {
-                errors.push({ element: errorDevelopers, message: 'Вы ввели слишком короткое имя' });
+            // Валидация всех полей
+            if (!validateDevelopersField()) {
+                errors.push({ element: errorDevelopers, message: errorDevelopers.textContent });
                 if (!firstErrorField) firstErrorField = developers;
             }
-
-            // Валидация поля "Название сайта"
-            const cleanSiteNameValue = cleanValue(siteName.value);
-            if (!cleanSiteNameValue) {
-                errors.push({ element: errorSiteName, message: 'Вы ничего не ввели' });
-                if (!firstErrorField) firstErrorField = siteName;
-            } else if (!hasNoLongRepeatsNoRegex(cleanSiteNameValue)) {
-                errors.push({ element: errorSiteName, message: 'Ввод содержит недопустимые повторяющиеся спецсимволы (3 и более подряд)' });
-                if (!firstErrorField) firstErrorField = siteName;
-            } else if (cleanSiteNameValue.length > 50) {
-                errors.push({ element: errorSiteName, message: 'Введите URL сайта не длиннее 50 символов' });
-                if (!firstErrorField) firstErrorField = siteName;
-            } else if (cleanSiteNameValue.length < 3) {
-                errors.push({ element: errorSiteName, message: 'Вы ввели слишком короткое название' });
+            if (!validateSiteNameField()) {
+                errors.push({ element: errorSiteName, message: errorSiteName.textContent });
                 if (!firstErrorField) firstErrorField = siteName;
             }
-
-            // Валидация поля "Дата запуска"
-            const today = new Date();
-            const selectedDate = new Date(launchDate.value);
-            const minYear = new Date('1990-01-01');
-            if (!launchDate.value) {
-                errors.push({ element: errorLaunchDate, message: 'Пожалуйста, выберите дату' });
-                if (!firstErrorField) firstErrorField = launchDate;
-            } else if (selectedDate > today) {
-                errors.push({ element: errorLaunchDate, message: 'Дата не может быть в будущем' });
-                if (!firstErrorField) firstErrorField = launchDate;
-            } else if (selectedDate < minYear) {
-                errors.push({ element: errorLaunchDate, message: 'Дата слишком ранняя (не ранее 1990 года)' });
+            if (!validateLaunchDateField()) {
+                errors.push({ element: errorLaunchDate, message: errorLaunchDate.textContent });
                 if (!firstErrorField) firstErrorField = launchDate;
             }
-
-            // Валидация поля "Посетителей за сутки"
-            const cleanSubValue = cleanValue(sub.value);
-            if (!cleanSubValue) {
-                errors.push({ element: errorSub, message: 'Вы ничего не ввели' });
+            if (!validateSubField()) {
+                errors.push({ element: errorSub, message: errorSub.textContent });
                 if (!firstErrorField) firstErrorField = sub;
-            } else if (!hasNoLongRepeatsNoRegex(cleanSubValue)) {
-                errors.push({ element: errorSub, message: 'Ввод содержит недопустимые повторяющиеся спецсимволы (3 и более подряд)' });
-                if (!firstErrorField) firstErrorField = sub;
-            } else if (!/^\d+$/.test(cleanSubValue)) {
-                errors.push({ element: errorSub, message: 'Введите только целое число' });
-                if (!firstErrorField) firstErrorField = sub;
-            } else {
-                const subValue = parseInt(cleanSubValue, 10);
-                if (subValue > 100000) {
-                    errors.push({ element: errorSub, message: 'Мы не верим, что у вас такое большое количество посетителей' });
-                    if (!firstErrorField) firstErrorField = sub;
-                }
             }
-
-            // Валидация поля "Рубрика каталога"
-            const rubrickValue = rubrick.value;
-            if (!rubrickValue) {
-                errors.push({ element: errorRubrick, message: 'Пожалуйста выберите рубрику' });
-                if (!firstErrorField) firstErrorField = rubrick;
-            } else if (rubrickValue === 'house') {
-                errors.push({ element: errorRubrick, message: 'Извините данная рубрика пока что не доступна' });
+            if (!validateRubrickField()) {
+                errors.push({ element: errorRubrick, message: errorRubrick.textContent });
                 if (!firstErrorField) firstErrorField = rubrick;
             }
-
-            // Валидация поля "Размещение"
-            const accommodationValue = Array.from(accommodation).find(radio => radio.checked)?.value;
-            if (!accommodationValue) {
-                errors.push({ element: errorAccommodation, message: 'Пожалуйста выберите размещение' });
-                if (!firstErrorField) firstErrorField = accommodation[0];
-            } else if (accommodationValue === 'free') {
-                errors.push({ element: errorAccommodation, message: 'Выберите другое размещение, бесплатно пока что не доступно' });
+            if (!validateAccommodationField()) {
+                errors.push({ element: errorAccommodation, message: errorAccommodation.textContent });
                 if (!firstErrorField) firstErrorField = accommodation[0];
             }
-
-            // Валидация поля "Разрешить отзывы"
-            const reviewsValue = reviews.checked;
-            if (!reviewsValue) {
-                errors.push({ element: errorReviews, message: 'Вы не согласились с правилами сайта' });
+            if (!validateReviewsField()) {
+                errors.push({ element: errorReviews, message: errorReviews.textContent });
                 if (!firstErrorField) firstErrorField = reviews;
             }
-
-            // Валидация поля "Описание сайта"
-            const descriptionValue = cleanValue(description.value); 
-            if (!descriptionValue) {
-                errors.push({ element: errorDescription, message: 'Введите описание сайта' });
-                if (!firstErrorField) firstErrorField = description;
-            } else if (descriptionValue.length < 500) {
-                errors.push({ element: errorDescription, message: 'Описание сайта не может быть меньше 500 символов' });
+            if (!validateDescriptionField()) {
+                errors.push({ element: errorDescription, message: errorDescription.textContent });
                 if (!firstErrorField) firstErrorField = description;
             }
 
@@ -190,9 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Если ошибок нет, отправляем форму
-            if (errors.length === 0) {
-                form.submit();
-            }
+            form.submit();
 
         } catch (ex) {
             console.error('Ошибка валидации:', ex);
@@ -211,6 +275,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     reviews.addEventListener('change', () => hideError(errorReviews));
     description.addEventListener('input', () => hideError(errorDescription));
+
+    // Добавление слушателей событий для валидации при уходе с поля
+    developers.addEventListener('blur', validateDevelopersField);
+    siteName.addEventListener('blur', validateSiteNameField);
+    launchDate.addEventListener('blur', validateLaunchDateField);
+    sub.addEventListener('blur', validateSubField);
+    rubrick.addEventListener('blur', validateRubrickField);
+    Array.from(accommodation).forEach(radio => {
+        radio.addEventListener('change', validateAccommodationField);
+    });
+    reviews.addEventListener('blur', validateReviewsField);
+    description.addEventListener('blur', validateDescriptionField);
 
     // Добавление слушателя события на отправку формы
     form.addEventListener('submit', validateInfoForm, false);
