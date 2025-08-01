@@ -8,33 +8,50 @@
 </head>
 <body>
     <form action="https://fe.it-academy.by/TestForm.php" name="VALID">
+
   <label for="developers">Разработчики:</label>
   <input type="text" id="developers" name="developers"> <span id="error-developers" class="error"> error </span><br>
+
    <label for="site-name">Название сайта:</label>
-  <input type="text" id="site-name" name="developers"><span id="error-site-name" class="error"> error </span><br>
+  <input type="text" id="site-name" name="site-name"><span id="error-site-name" class="error"> error </span><br>
+
      <label for="launch-date">Дата запуска сайта:</label>
   <input type="date" id="launch-date" name="launch-date"><span id="error-launch-date" class="error"> error </span><br>
+
    <label for="sub">Посетителей за сутки:</label>
   <input type="text" id="sub" name="sub"><span id="error-sub" class="error"> error </span><br>
+
    <label for="rubrick">Рубрика каталога:</label>
   <select name="rubrick" id="rubrick">
+    <option value=""></option>
     <option value="appliances">бытовая техника</option>
-    <option value="heals">здоровье</option>
+    <option value="health">здоровье</option>
     <option value="house">домашний уют</option>
   </select><span id="error-rubrick" class="error"> error </span><br>
+
+
   <label for="accommodation">Размещение:</label>
-  <input type="radio" id="accommodation"> 
-  <span>бесплатное</span>
-    <input type="radio" id="accommodation"> 
-  <span>платное</span>
-    <input type="radio" id="accommodation"> 
-  <span>VIP</span> <span id="error-accommodation" class="error"> error </span><br>
+
+ <input type="radio" id="accommodation-free" name="accommodation" value="free">
+<label for="accommodation-free">бесплатное</label>
+<input type="radio" id="accommodation-paid" name="accommodation" value="paid">
+<label for="accommodation-paid">платное</label>
+<input type="radio" id="accommodation-vip" name="accommodation" value="vip">
+<label for="accommodation-vip">VIP</label>
+<span id="error-accommodation" class="error"> error </span><br>
+
+
 <label for="reviews">Разрешить отзывы:</label>
-<input type="checkbox"><span id="error-reviews" class="error"> error </span> <br>
+<input type="checkbox" id="reviews" name="reviews"> <span id="error-reviews" class="error"> error </span><br>
+
 <label for="description"> Описание сайта:</label><br>
 <textarea name="description" id="description" style="width: 400px; "></textarea> <span id="error-description" class="error"> error </span><br>
+
+
 <input type="submit" value="Опубликовать">
+
     </form>
     <script src="validate_form.js"></script>
+   
 </body>
 </html>

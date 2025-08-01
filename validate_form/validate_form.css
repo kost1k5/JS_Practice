@@ -2,3 +2,12 @@
     color:red;
     display: none;
 }
+input{
+    outline: none;
+}
+select{
+    outline: none;
+}
+textarea{
+    outline: none;
+}
