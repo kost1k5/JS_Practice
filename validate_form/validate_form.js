@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Функция проверки на повторяющиеся спецсимволы
     function hasNoLongRepeatsNoRegex(value) {
-        const specialChars = ['.', '-', '_', ':', '/', '\\', '?', '&', '=', '#', '%'];
+        const specialChars = ['.', '-', '_', ':', '/', '?', '&', '=', '#', '%'];
         let count = 1;
         for (let i = 1; i < value.length; i++) {
             if (value[i] === value[i - 1] && specialChars.includes(value[i])) {
