@@ -1,0 +1,83 @@
+body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        #clock-container {
+            display: none;
+            position: relative;
+            margin: 20px;
+        }
+
+        #clock-face {
+            position: relative;
+            background-color: #fff; /* Белый фон для элегантности */
+            border: 3px solid #333;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Тень для премиального вида */
+            overflow: hidden;
+        }
+
+        .number {
+            position: absolute;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            color: #333;
+            transform-origin: center;
+        }
+
+        .hand {
+            position: absolute;
+            transform-origin: bottom;
+            border-radius: 2px;
+        }
+
+        #hour-hand {
+            background-color: #333;
+        }
+
+        #minute-hand {
+            background-color: #666;
+        }
+
+        #second-hand {
+            background-color: #d32f2f; /* Красная секундная стрелка */
+        }
+
+        #text-display {
+            position: absolute;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            width: 80%;
+            left: 10%;
+            top: 70%; /* Размещаем ниже центра */
+            transform: translateY(-50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        #inputNum, #buttonBuil {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #buttonBuil {
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #buttonBuil:hover {
+            background-color: #256b43;
+        }
