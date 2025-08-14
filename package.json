@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^4.21.0",
+    "axios": "^1.11.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.2.1",
+    "fs": "^0.0.1-security",
+    "ml-regression-simple-linear": "^3.0.1",
+    "node-telegram-bot-api": "^0.63.0",
+    "technicalindicators": "^3.1.0",
+    "ws": "^8.18.3"
+  }
+}
